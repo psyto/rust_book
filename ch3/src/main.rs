@@ -4,38 +4,21 @@ struct File {
     data: Vec<u8>,
 }
 
-fn open(f: &mut File) -> bool {
-    true
-}
-
-fn close(f: &mut File) -> bool {
-    true
-}
-
-fn read(f: &File, save_to: &mut Vec<u8>) -> usize {
-    let mut tmp = f.data.clone();
-    let read_length = tmp.len();
-
-    save_to.reserve(read_length);
-    save_to.append(&mut tmp);
-    read_length
+impl File {
+    fn new(name: &str) -> File {
+        File {
+            name: String::from(name),
+            data: Vec::new(),
+        }
+    }
 }
 
 fn main() {
-    let mut f2 = File {
-        name: String::from("2.txt"),
-        data: vec![114, 117, 115, 116, 33],
-    };
+    let f3 = File::new("f3.txt");
 
-    let mut buffer: Vec<u8> = vec![];
+    let f3_name = &f3.name;
+    let f3_length = f3.data.len();
 
-    open(&mut f2);
-    let f2_length = read(&f2, &mut buffer);
-    close(&mut f2);
-
-    let text = String::from_utf8_lossy(&buffer);
-
-    println!("{:?}", f2);
-    println!("{} is {} bytes long", &f2.name, f2_length);
-    println!("{}", text)
+    println!("{:?}", f3);
+    println!("{} is {} bytes long", f3_name, f3_length);
 }
